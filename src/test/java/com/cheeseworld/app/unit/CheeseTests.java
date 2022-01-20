@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class CheeseTests {
 
@@ -21,4 +22,22 @@ public class CheeseTests {
         assertThat(new Cheese("Manchego|gourmet spanish cheese|100gr").isStinky(), is(false));
         assertThat(new Cheese("Cabrales|super smelly cheese|100gr").isStinky(), is(true));
     }
+
+    @Test
+    void aCheeseHasDiscountIfContainDiscountInTheDescription () {
+        assertThat(new Cheese("Rochefort|stinky french cheese discount|250gr").hasDiscount(), is(true));
+        assertThat(new Cheese("Manchego|gourmet spanish cheese|100gr").hasDiscount(), is(false));
+        assertThat(new Cheese("Cabrales|super smelly cheese|100gr").hasDiscount(), is(false));
+    }
+
+    @Test
+    public void aCheeseHasPriceNormal() {
+        Cheese cheese = new Cheese("Rochefort|stinky french cheese discount|250gr");
+        cheese.setPrice(5.0);
+        assertThat(cheese.getPrice(), equalTo(4.5));
+
+    }
+
+
+
 }

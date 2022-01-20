@@ -9,8 +9,10 @@ public class Cheese {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    private double price;
     private boolean stinky;
     private boolean french;
+    private boolean discount;
 
     public Cheese() {
 
@@ -20,6 +22,7 @@ public class Cheese {
         this.name = info.split("\\|")[0];
         this.stinky = info.contains("stinky") || info.contains("smell");
         this.french = info.contains("french");
+        this.discount = info.contains("discount");
     }
 
     public Long getId() {
@@ -32,10 +35,15 @@ public class Cheese {
     public String getName() {
         return name;
     }
-
-    public boolean isStinky() {
-        return stinky;
+    public double getPrice(){ return price;}
+    public void setPrice(double v) {
+        if (!this.discount) this.price = 5.0;
+        else this.price = 4.5;
     }
 
+    public boolean isStinky() { return stinky; }
+
     public boolean isFrench() { return french; }
+
+    public boolean hasDiscount() {return discount; }
 }
